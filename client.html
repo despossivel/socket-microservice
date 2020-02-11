@@ -1,0 +1,41 @@
+<div>
+    <input id="idEstabelecimento" placeholder="idEstabelecimento" />
+    <button onclick="registrar()">registrar</button>
+</div>
+
+<div>
+    <input id="destinatario" placeholder="destinatario" />
+    <input id="valorDebitado" placeholder="valorDebitado" />
+    <button onClick="debitar()">enviar</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script>
+
+
+    const socket = io('http://192.168.3.19:5005');
+
+
+    const registrar = () => socket.emit('registrar', {
+        _id: document.getElementById('idEstabelecimento').value
+    })
+
+    const debitar = () => {
+        const _idEstabelecimento = document.getElementById('idEstabelecimento').value;
+        const _idDestinatario = document.getElementById('destinatario').value;
+        const valorDebitado = document.getElementById('valorDebitado').value;
+        socket.emit('transferencia', {
+            _idDestinatario,
+            valorDebitado,
+            _idEstabelecimento
+        })
+    }
+
+
+
+    socket.on('receiveDebit', (dados) => {
+        console.log('recebeu o socket para debitar ')
+        console.log(dados)
+    })
+
+</script>
