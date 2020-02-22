@@ -24,10 +24,10 @@
     const debitar = () => {
         const _idEstabelecimento = document.getElementById('idEstabelecimento').value;
         const _idDestinatario = document.getElementById('destinatario').value;
-        const valorDebitado = document.getElementById('valorDebitado').value;
+        const pontos = document.getElementById('valorDebitado').value;
         socket.emit('transferencia', {
             _idDestinatario,
-            valorDebitado,
+            pontos,
             _idEstabelecimento
         })
     }
